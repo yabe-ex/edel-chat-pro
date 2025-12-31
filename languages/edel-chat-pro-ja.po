@@ -1,0 +1,374 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Edel Chat Pro\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-30 00:52+0000\n"
+"PO-Revision-Date: 2025-12-30 14:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: 日本語\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.0; wp-6.9; php-8.1.23\n"
+"X-Domain: edel-chat-pro"
+
+#: inc/class-front.php:511
+msgid "* jpg, png, gif (Max 2MB)"
+msgstr "※ jpg, png, gif (最大2MB)"
+
+#: inc/class-front.php:124
+msgid "Access denied."
+msgstr "アクセスが拒否されました。"
+
+#: inc/class-admin.php:267 inc/class-admin.php:307
+msgid "Action"
+msgstr "操作"
+
+#: inc/class-admin.php:117
+msgid "Admin Badge Text"
+msgstr "管理者バッジのテキスト"
+
+#: inc/class-admin.php:98
+msgid "Admin Name for this page:"
+msgstr "このページの管理者名:"
+
+#. %s: room id
+#: inc/class-admin.php:244
+#, php-format
+msgid "All messages in room \"%s\" have been deleted."
+msgstr "ルーム「%s」のすべてのメッセージが削除されました。"
+
+#: inc/class-front.php:70 inc/class-front.php:156
+msgid "Anonymous"
+msgstr "匿名"
+
+#: inc/class-admin.php:339
+msgid "Are you sure you want to delete all logs in this room?"
+msgstr "このルームのすべてのログを削除してもよろしいですか？"
+
+#: inc/class-front.php:43
+msgid "Are you sure you want to delete?"
+msgstr "本当に削除してもよろしいですか？"
+
+#: inc/class-admin.php:280
+msgid "Are you sure?"
+msgstr "本当によろしいですか？"
+
+#: inc/class-admin.php:266
+msgid "Back to List"
+msgstr "リストに戻る"
+
+#: inc/class-admin.php:112
+msgid "Background Color"
+msgstr "背景色"
+
+#: inc/class-admin.php:123
+msgid "Banned IP List"
+msgstr "禁止IPリスト"
+
+#: inc/class-front.php:522
+msgid "Bio"
+msgstr "自己紹介"
+
+#: inc/class-front.php:102
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: inc/class-admin.php:265
+msgid "Chat Details"
+msgstr "チャット詳細"
+
+#: inc/class-admin.php:7 inc/class-admin.php:300
+msgid "Chat Rooms"
+msgstr "チャットルーム"
+
+#: inc/class-admin.php:115
+msgid "Chat Window Height"
+msgstr "チャットウィンドウの高さ"
+
+#: inc/class-admin.php:125
+msgid "Comma separated (e.g. word1,word2)."
+msgstr "カンマ区切り (例: word1,word2)。"
+
+#: inc/class-front.php:157
+msgid "Content is empty."
+msgstr "内容が空です。"
+
+#: inc/class-admin.php:336
+msgid "CSV DL"
+msgstr "CSVダウンロード"
+
+#: inc/class-admin.php:267
+msgid "Date"
+msgstr "日時"
+
+#: inc/class-admin.php:280
+msgid "Delete"
+msgstr "削除"
+
+#: inc/class-admin.php:343
+msgid "Delete All"
+msgstr "全削除"
+
+#: inc/class-admin.php:129
+msgid "Delete Data on Uninstall"
+msgstr "アンインストール時にデータを削除"
+
+#: inc/class-front.php:447
+msgid "Deletion failed."
+msgstr "削除に失敗しました。"
+
+#: inc/class-front.php:517
+msgid "Display Name"
+msgstr "表示名"
+
+#: inc/class-front.php:99
+msgid "Do you want to send this image?"
+msgstr "この画像を送信しますか？"
+
+#. Name of the plugin
+msgid "Edel Chat Pro"
+msgstr "Edel Chat Pro"
+
+#: inc/class-admin.php:91
+msgid "Edel Chat Pro Room Settings"
+msgstr "Edel Chat Pro ルーム設定"
+
+#. Author of the plugin
+msgid "Edel Hearts"
+msgstr "Edel Hearts"
+
+#: inc/class-front.php:89
+msgid "Enter message"
+msgstr "メッセージを入力"
+
+#: inc/class-admin.php:123
+msgid "Enter one IP address per line. Posts from these IPs will be rejected."
+msgstr "1行に1つのIPアドレスを入力してください。これらのIPからの投稿は拒否されます。"
+
+#: inc/class-admin.php:158
+msgid "Example: 500px, 80vh"
+msgstr "例: 500px, 80vh"
+
+#: inc/class-admin.php:117
+msgid "Example: ADMIN, STAFF"
+msgstr "例: ADMIN, STAFF"
+
+#: inc/class-front.php:574
+msgid "File size too large (Max 2MB)."
+msgstr "ファイルサイズが大きすぎます (最大2MB)。"
+
+#. Author URI of the plugin
+msgid "https://edel-hearts.com"
+msgstr "https://edel-hearts.com"
+
+#: inc/class-front.php:504
+msgid "Icon"
+msgstr "アイコン"
+
+#: inc/class-admin.php:129
+msgid ""
+"If checked, all chat logs, settings, and uploaded files will be permanently "
+"deleted when the plugin is deleted."
+msgstr "チェックを入れると、プラグイン削除時にすべてのチャットログ、設定、アップロードファイルが完全に削除されます。"
+
+#: inc/class-front.php:344 inc/class-admin.php:276
+msgid "Image"
+msgstr "画像"
+
+#: inc/class-front.php:188
+msgid "Image error."
+msgstr "画像エラー。"
+
+#: inc/class-admin.php:119
+msgid ""
+"Interval for auto-fetching messages. Increase this if server load is high."
+msgstr "メッセージの自動取得間隔です。サーバー負荷が高い場合は数値を上げてください。"
+
+#: inc/class-front.php:570
+msgid "Invalid file type."
+msgstr "無効なファイル形式です。"
+
+#: inc/class-front.php:168
+msgid "Invalid image format."
+msgstr "無効な画像形式です。"
+
+#: inc/class-admin.php:267
+msgid "IP Address"
+msgstr "IPアドレス"
+
+#: inc/class-admin.php:306
+msgid "Last Active"
+msgstr "最終更新"
+
+#: inc/class-admin.php:235
+msgid "Log deleted."
+msgstr "ログを削除しました。"
+
+#: inc/class-front.php:453
+msgid "Login"
+msgstr "ログイン"
+
+#: inc/class-front.php:453
+msgid "Login required."
+msgstr "ログインが必要です。"
+
+#: inc/class-admin.php:267
+msgid "Message"
+msgstr "メッセージ"
+
+#: inc/class-front.php:200
+msgid "Message contains prohibited words."
+msgstr "メッセージに禁止ワードが含まれています。"
+
+#: inc/class-front.php:411
+msgid "Message is empty."
+msgstr "メッセージが空です。"
+
+#: inc/class-admin.php:305
+msgid "Messages"
+msgstr "メッセージ数"
+
+#: inc/class-admin.php:113
+msgid "My Bubble Color"
+msgstr "自分の吹き出し色"
+
+#: inc/class-admin.php:98
+msgid "Name used when admin posts."
+msgstr "管理者が投稿する際に使用される名前です。"
+
+#: inc/class-front.php:70
+msgid "Name:"
+msgstr "名前:"
+
+#: inc/class-admin.php:125
+msgid "NG Words"
+msgstr "NGワード"
+
+#: inc/class-admin.php:267
+msgid "Nickname"
+msgstr "ニックネーム"
+
+#: inc/class-admin.php:283
+msgid "No logs found."
+msgstr "ログが見つかりませんでした。"
+
+#: inc/class-admin.php:263
+msgid "No Name"
+msgstr "名称未設定"
+
+#: inc/class-admin.php:350
+msgid "No rooms found."
+msgstr "ルームが見つかりませんでした。"
+
+#: inc/class-admin.php:114
+msgid "Other Bubble Color"
+msgstr "相手の吹き出し色"
+
+#: inc/class-front.php:415
+msgid "Permission denied."
+msgstr "権限がありません。"
+
+#. %d: seconds
+#: inc/class-front.php:134
+msgid "Please wait %d seconds before sending another message."
+msgstr "次のメッセージを送信するまで %d 秒お待ちください。"
+
+#: inc/class-front.php:480
+msgid "Profile and image updated."
+msgstr "プロフィールと画像を更新しました。"
+
+#: inc/class-front.php:498
+msgid "Profile Settings"
+msgstr "プロフィール設定"
+
+#: inc/class-front.php:483
+msgid "Profile updated."
+msgstr "プロフィールを更新しました。"
+
+#: inc/class-front.php:62
+msgid "Reply to"
+msgstr "返信"
+
+#: inc/class-admin.php:303
+msgid "Room ID"
+msgstr "ルームID"
+
+#: inc/class-admin.php:304
+msgid "Room Name"
+msgstr "ルーム名"
+
+#: inc/class-admin.php:227
+msgid "Room name updated."
+msgstr "ルーム名を更新しました。"
+
+#: inc/class-front.php:527 inc/class-admin.php:322
+msgid "Save"
+msgstr "保存"
+
+#: inc/class-front.php:229
+msgid "Save failed."
+msgstr "保存に失敗しました。"
+
+#: inc/class-front.php:42 inc/class-front.php:90 inc/class-front.php:103
+msgid "Send"
+msgstr "送信"
+
+#: inc/class-front.php:78
+msgid "Send Image"
+msgstr "画像を送信"
+
+#: inc/class-admin.php:321
+msgid "Set Name"
+msgstr "名前を設定"
+
+#: inc/class-admin.php:8 inc/class-admin.php:19 inc/class-admin.php:198
+msgid "Settings"
+msgstr "設定"
+
+#: inc/class-admin.php:121
+msgid "Spam Limit (sec)"
+msgstr "連続投稿制限 (秒)"
+
+#: inc/class-front.php:344
+msgid "Stamp"
+msgstr "スタンプ"
+
+#: inc/class-front.php:83
+msgid "Stamps"
+msgstr "スタンプ"
+
+#: inc/class-front.php:49
+msgid "Toggle Sound"
+msgstr "通知音切替"
+
+#: inc/class-admin.php:128
+msgid "Uninstallation"
+msgstr "アンインストール"
+
+#: inc/class-front.php:432
+msgid "Update failed."
+msgstr "更新に失敗しました。"
+
+#: inc/class-admin.php:119
+msgid "Update Interval (sec)"
+msgstr "更新間隔 (秒)"
+
+#: inc/class-front.php:607
+msgid "Upload failed. Check directory permissions."
+msgstr "アップロードに失敗しました。ディレクトリの権限を確認してください。"
+
+#: inc/class-admin.php:330
+msgid "View Logs"
+msgstr "ログを表示"
+
+#: inc/class-admin.php:121
+msgid "Wait time between posts (0 to disable)."
+msgstr "連続投稿の待機時間 (0で無効化)。"
+
+#. Description of the plugin
+msgid "ショートコードで設置できるLINE風グループチャット (Pro機能搭載版)"
+msgstr "ショートコードで設置できるLINE風グループチャット (Pro機能搭載版)"

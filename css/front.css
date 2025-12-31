@@ -1,0 +1,867 @@
+:root {
+    --ec-bg-color: #7296cc;
+    --ec-me-color: #8de055;
+    --ec-other-color: #ffffff;
+    --ec-height: 500px;
+}
+
+#edel-chat-app {
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    background-color: var(--ec-bg-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: var(--ec-height);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* --- ヘッダーツール --- */
+.edel-chat-header-tools {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    z-index: 50;
+}
+#edel-chat-sound-toggle {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* --- メッセージエリア --- */
+.edel-chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 共通行スタイル */
+.edel-chat-row {
+    display: flex;
+    max-width: 85%;
+    position: relative;
+    align-items: flex-end;
+    gap: 8px;
+}
+.edel-chat-row.is-other {
+    align-self: flex-start;
+    flex-direction: row;
+}
+.edel-chat-row.is-me {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+/* アバター */
+.edel-chat-avatar-col {
+    flex-shrink: 0;
+    width: 32px;
+}
+.edel-chat-avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.edel-chat-avatar-default {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ccc;
+    color: white;
+    text-align: center;
+    line-height: 32px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* コンテンツカラム */
+.edel-chat-content-col {
+    display: flex;
+    flex-direction: column;
+}
+.edel-chat-nickname {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2px;
+    margin-left: 2px;
+}
+.edel-admin-badge {
+    background: #ffaa00;
+    color: white;
+    font-size: 9px;
+    padding: 1px 4px;
+    border-radius: 4px;
+    margin-left: 4px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+/* ★追加: 中身が空の場合は非表示にする */
+.edel-admin-badge:empty {
+    display: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 吹き出し */
+.edel-chat-bubble {
+    border-radius: 18px;
+    padding: 10px 14px;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    min-width: 40px;
+}
+.edel-chat-row.is-other .edel-chat-bubble {
+    background-color: var(--ec-other-color);
+    border-top-left-radius: 2px;
+}
+.edel-chat-row.is-me .edel-chat-bubble {
+    background-color: var(--ec-me-color);
+    border-top-right-radius: 2px;
+}
+
+/* --- アクションバー (統合版) --- */
+.edel-chat-actions-bar {
+    position: absolute;
+    top: -25px;
+    display: none;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 2px 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    gap: 5px;
+    z-index: 20;
+}
+.edel-chat-row:hover .edel-chat-actions-bar {
+    display: flex;
+}
+.edel-chat-row.is-me .edel-chat-actions-bar {
+    right: 0;
+}
+.edel-chat-row.is-other .edel-chat-actions-bar {
+    left: 40px;
+}
+
+/* アクションボタン共通 */
+.edel-action-btn {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+.edel-action-btn:hover {
+    background-color: #f0f2f5;
+    color: #0084ff;
+}
+.edel-chat-delete:hover {
+    color: #ff4d4d;
+}
+
+/* --- テキストスタイル --- */
+.edel-chat-text {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+    word-break: break-all;
+    white-space: pre-wrap;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.edel-chat-text br {
+    display: inline;
+    content: normal;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: inherit;
+}
+.edel-chat-text p {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.4;
+}
+
+/* --- スタンプ --- */
+.edel-chat-stamp {
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin-bottom: 2px;
+}
+.edel-chat-stamp svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.edel-chat-row .edel-chat-bubble.is-stamp {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-bottom: -5px;
+}
+.edel-chat-row .edel-chat-bubble.is-stamp .edel-chat-meta {
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+    font-size: 9px;
+    margin-top: 0;
+    opacity: 0.6;
+}
+
+/* --- 画像 --- */
+.edel-chat-image {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    display: block;
+    cursor: zoom-in;
+    object-fit: cover;
+}
+
+/* --- OGPカード --- */
+.edel-ogp-card {
+    display: block;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    background: #f9f9f9;
+    max-width: 100%;
+}
+.edel-ogp-img {
+    width: 100%;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+}
+.edel-ogp-content {
+    padding: 8px;
+}
+.edel-ogp-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.edel-ogp-desc {
+    font-size: 10px;
+    color: #666;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- 返信引用 --- */
+.edel-chat-reply-quote {
+    margin-bottom: 6px;
+    padding-left: 8px;
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+    font-size: 11px;
+}
+.edel-quote-name {
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+.edel-quote-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* --- メタ情報 --- */
+.edel-chat-meta {
+    font-size: 10px;
+    color: #888;
+    text-align: right;
+    margin-top: 3px;
+    opacity: 0.7;
+}
+.edel-chat-row.is-me .edel-chat-meta {
+    color: #444;
+}
+.edel-edited-mark {
+    font-size: 9px;
+    color: #999;
+    font-style: italic;
+}
+
+/* --- リアクションエリア --- */
+.edel-reaction-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    position: relative;
+}
+
+/* リアクションピッカー */
+.edel-reaction-picker {
+    position: absolute;
+    top: 120%;
+    left: 20%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    padding: 0 20px;
+    display: flex;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    height: 80px !important;
+    line-height: 1;
+}
+
+/* .emoji-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 40px;
+} */
+/* .emoji-char {
+    font-size: 80px;
+    line-height: 0;
+    display: block;
+} */
+.edel-react-emoji {
+    cursor: pointer;
+    font-size: 78px;
+    /* padding: 1px 1px 20px 1px; */
+    transition: transform 0.1s;
+    line-height: 1;
+    display: block;
+}
+.edel-react-emoji:hover {
+    transform: scale(1.3);
+}
+
+/* リアクションピル */
+.edel-reaction-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #333;
+    cursor: pointer;
+}
+.edel-reaction-pill .count {
+    font-size: 10px;
+    font-weight: bold;
+}
+.edel-reaction-pill.my-react {
+    background: #e6f7ff;
+    border-color: #1890ff;
+    color: #0050b3;
+}
+
+/* --- 返信プレビュー --- */
+#edel-chat-reply-preview {
+    background: #f0f0f0;
+    padding: 8px 12px;
+    border-top: 1px solid #ddd;
+    border-left: 3px solid #0084ff;
+    font-size: 12px;
+    position: relative;
+    display: none;
+}
+.edel-reply-info {
+    font-weight: bold;
+    margin-bottom: 2px;
+    color: #0084ff;
+    display: flex;
+    justify-content: space-between;
+}
+#edel-reply-close {
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+}
+#edel-reply-text-preview {
+    color: #666;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* --- 入力エリア --- */
+.edel-chat-controls {
+    background-color: #fff;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.edel-chat-name-row {
+    margin-bottom: 8px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    color: #666;
+}
+.edel-chat-name-row input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    width: 120px;
+    margin-left: 5px;
+    font-size: 12px;
+    outline: none;
+}
+.edel-chat-input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+/* ボタン類 */
+#edel-chat-image-btn,
+#edel-chat-stamp-btn {
+    width: 36px;
+    height: 36px;
+    background-color: #f0f2f5;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+    opacity: 1 !important;
+    padding: 0;
+    margin: 0;
+}
+#edel-chat-image-btn svg,
+#edel-chat-stamp-btn svg {
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    stroke: #555 !important;
+    fill: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+#edel-chat-image-btn:hover,
+#edel-chat-stamp-btn:hover {
+    background-color: #e4e6eb;
+}
+#edel-chat-image-btn:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed;
+}
+
+/* テキストエリア */
+#edel-chat-text {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    padding: 8px 12px;
+    resize: none;
+    height: 36px;
+    line-height: 1.4;
+    font-size: 14px;
+    outline: none;
+    background: #f0f2f5;
+    transition: height 0.2s;
+}
+#edel-chat-text:focus {
+    background: #fff;
+    border-color: #ccc;
+}
+
+/* 送信ボタン */
+#edel-chat-send-btn {
+    height: 36px;
+    padding: 0 15px;
+    background-color: #0084ff;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+#edel-chat-send-btn:hover {
+    background-color: #0073e6;
+}
+#edel-chat-send-btn:disabled {
+    background-color: #b0c4de;
+    cursor: default;
+}
+
+/* スタンプピッカー */
+#edel-chat-stamp-picker {
+    position: absolute;
+    bottom: 60px;
+    left: 10px;
+    width: 280px;
+    height: 220px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    display: none;
+    z-index: 100;
+    overflow-y: auto;
+    padding: 10px;
+}
+.edel-stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+.edel-stamp-item {
+    cursor: pointer;
+    transition: transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 4px;
+}
+.edel-stamp-item:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+}
+.edel-stamp-item svg {
+    width: 50px;
+    height: 50px;
+}
+
+/* 編集フォーム */
+.edel-edit-form {
+    width: 100%;
+    min-width: 150px;
+}
+.edel-edit-input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 12px;
+    min-height: 40px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+}
+.edel-edit-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+.edel-edit-buttons button {
+    font-size: 10px;
+    padding: 2px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+}
+.edel-edit-cancel {
+    background: #eee;
+    color: #333;
+}
+.edel-edit-save {
+    background: #0084ff;
+    color: white;
+}
+
+/* その他 */
+.edel-chat-date-divider {
+    text-align: center;
+    margin: 15px 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.edel-chat-date-divider span {
+    background-color: rgba(0, 0, 0, 0.15);
+    color: white;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+#edel-chat-loader {
+    display: none;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    background-color: transparent;
+}
+.edel-spinner {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    border-top-color: #555;
+    animation: edel-spin 0.8s ease-in-out infinite;
+}
+@keyframes edel-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+#edel-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+#edel-lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    cursor: default;
+}
+#edel-lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+.edel-message-row:not(.is-mine) .edel-message-actions {
+    left: auto;
+    right: 0;
+}
+.edel-message-content {
+    position: relative;
+    width: fit-content;
+    max-width: 70%;
+}
+
+/* --- マイページ --- */
+.edel-mypage-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.edel-section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    border-left: 4px solid #4a90e2;
+    padding-left: 12px;
+}
+.edel-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 40px 0;
+}
+.edel-form-group {
+    margin-bottom: 20px;
+}
+.edel-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+}
+.edel-input-text,
+.edel-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #fafafa;
+}
+.edel-input-text:focus,
+.edel-textarea:focus {
+    border-color: #4a90e2;
+    background: #fff;
+    outline: none;
+}
+.edel-icon-preview {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.edel-icon-preview img {
+    border-radius: 50%;
+    border: 1px solid #eee;
+}
+.edel-btn-primary {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.edel-btn-primary:hover {
+    background-color: #357abd;
+}
+.edel-btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.edel-btn-danger {
+    background-color: #fff;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.edel-btn-danger:hover {
+    background-color: #e74c3c;
+    color: #fff;
+}
+.edel-block-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.edel-block-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.edel-block-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.edel-block-user-info img {
+    border-radius: 50%;
+}
+.edel-empty-msg {
+    color: #999;
+    text-align: center;
+    padding: 20px 0;
+}
+.edel-empty-msg {
+    color: #999;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* ★追加: 画像送信確認モーダル */
+#edel-image-confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100000; /* ライトボックスより手前に表示 */
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.edel-confirm-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.edel-confirm-content p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}
+#edel-confirm-preview {
+    max-width: 100%;
+    max-height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+}
+.edel-confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.edel-confirm-actions button {
+    padding: 8px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+#edel-confirm-cancel {
+    background: #f0f0f0;
+    color: #333;
+    transition: background 0.2s;
+}
+#edel-confirm-cancel:hover {
+    background: #e0e0e0;
+}
+#edel-confirm-send {
+    background: #0084ff;
+    color: #fff;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+#edel-confirm-send:hover {
+    background: #0073e6;
+}
