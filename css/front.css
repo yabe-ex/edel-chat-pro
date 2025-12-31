@@ -324,7 +324,7 @@
     position: absolute;
     top: 120%;
     left: 20%;
-    transform: translateX(-50%);
+    transform: translateX(-20%);
     background: white;
     border: 1px solid #ddd;
     border-radius: 30px;
@@ -333,26 +333,21 @@
     gap: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 100;
-    height: 80px !important;
     line-height: 1;
 }
 
-/* .emoji-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    height: 40px;
-} */
-/* .emoji-char {
-    font-size: 80px;
-    line-height: 0;
-    display: block;
-} */
+.is-me .edel-reaction-picker {
+    transform: translateX(-70%);
+}
+
+.is-other .edel-reaction-picker {
+    transform: translateX(-20%);
+}
+
 .edel-react-emoji {
     cursor: pointer;
-    font-size: 78px;
-    /* padding: 1px 1px 20px 1px; */
+    font-size: 13px;
+    padding: 8px 1px;
     transition: transform 0.1s;
     line-height: 1;
     display: block;
@@ -864,4 +859,32 @@
 }
 #edel-confirm-send:hover {
     background: #0073e6;
+}
+
+/* ゲスト用メッセージ */
+.edel-mypage-guest {
+    text-align: center;
+    padding: 50px 20px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.edel-mypage-guest p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+    .edel-mypage-container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+    .edel-icon-preview {
+        flex-direction: column;
+        text-align: center;
+    }
 }

@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Edel Chat Pro
  * Description:       ショートコードで設置できるLINE風グループチャット (Pro機能搭載版)
- * Version:           1.2.0
+ * Version:           1.2.3
  * Author:            Edel Hearts
  * Author URI:        https://edel-hearts.com
  * License:           GPLv2 or later
@@ -19,8 +19,8 @@ define('EDEL_CHAT_PRO_NAME', 'Edel Chat Pro');
 define('EDEL_CHAT_PRO_URL', plugins_url('', __FILE__));
 define('EDEL_CHAT_PRO_PATH', dirname(__FILE__));
 define('EDEL_CHAT_PRO_SLUG', 'edel-chat-pro');
-define('EDEL_CHAT_PRO_VERSION', '1.2.0');
-define('EDEL_CHAT_PRO_DEVELOP', false);
+define('EDEL_CHAT_PRO_VERSION', '1.2.3');
+define('EDEL_CHAT_PRO_DEVELOP', true);
 
 global $wpdb;
 define('EDEL_CHAT_TABLE', $wpdb->prefix . 'edel_chat_messages');
@@ -60,6 +60,7 @@ class EdelChatPro {
 
         add_filter('get_avatar_url', array($front, 'edel_custom_avatar_url_filter'), 10, 3);
         add_filter('get_avatar', array($front, 'edel_custom_avatar_html_filter'), 10, 5);
+        add_action('wp_login', array($front, 'record_user_login'), 10, 2);
     }
 
     public static function activate() {

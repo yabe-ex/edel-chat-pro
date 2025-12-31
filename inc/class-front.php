@@ -2,6 +2,11 @@
 
 class EdelChatProFront {
 
+    // 最終ログイン日時を記録
+    function record_user_login($user_login, $user) {
+        update_user_meta($user->ID, 'edel_last_login', current_time('mysql'));
+    }
+
     function render_chat_shortcode($atts) {
         $version = (defined('EDEL_CHAT_PRO_DEVELOP') && EDEL_CHAT_PRO_DEVELOP) ? time() : EDEL_CHAT_PRO_VERSION;
         $a = shortcode_atts(array('id' => (string)get_the_ID()), $atts);
@@ -12,6 +17,9 @@ class EdelChatProFront {
         $me_color = !empty($options['me_color']) ? $options['me_color'] : '#8de055';
         $other_color = !empty($options['other_color']) ? $options['other_color'] : '#ffffff';
         $height = !empty($options['window_height']) ? $options['window_height'] : '500px';
+
+        // 設定からマイページURLを取得
+        $profile_url = isset($options['profile_page_url']) ? $options['profile_page_url'] : '';
 
         $admin_label = isset($options['admin_label']) ? $options['admin_label'] : 'ADMIN';
 
@@ -39,6 +47,7 @@ class EdelChatProFront {
             'adminLabel' => $admin_label,
             'soundUrl' => '',
             'pollingInterval' => $polling_interval,
+            'profileUrl' => $profile_url,
             'sendLabel' => __('Send', 'edel-chat-pro'),
             'deleteConfirm' => __('Are you sure you want to delete?', 'edel-chat-pro')
         ));
@@ -104,7 +113,7 @@ class EdelChatProFront {
                 </div>
             </div>
         </div>
-    <?php
+        <?php
         return ob_get_clean();
     }
 
@@ -321,10 +330,21 @@ class EdelChatProFront {
             if ($row->message_type === 'stamp') $msgContent = wp_kses_post($row->message); // Allow SVG
 
             $avatar = '';
+            $userSlug = '';
             $isAdmin = false;
             if (strpos($row->user_token, 'wp_') === 0) {
                 $uid = intval(substr($row->user_token, 3));
                 $avatar = get_avatar_url($uid);
+
+                // ユーザー情報と公開設定を取得
+                $user_info = get_userdata($uid);
+                $is_public = get_user_meta($uid, 'edel_is_profile_public', true);
+
+                // 公開設定がONの場合のみスラッグを渡す
+                if ($user_info && !empty($is_public)) {
+                    $userSlug = $user_info->user_nicename;
+                }
+
                 if (user_can($uid, 'manage_options')) {
                     $isAdmin = true;
                 }
@@ -357,7 +377,7 @@ class EdelChatProFront {
             ));
             // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Table name is a constant.
             $myReacts = $wpdb->get_col($wpdb->prepare(
-                "SELECT reaction FROM " . $reaction_table . " WHERE message_id = %d AND user_token = %s",
+                "SELECT reaction FROM " . $table_name . " WHERE message_id = %d AND user_token = %s",
                 $row->id,
                 $userToken
             ));
@@ -370,6 +390,7 @@ class EdelChatProFront {
                 'msg_type' => $row->message_type,
                 'nickname' => esc_html($row->nickname),
                 'user_token' => esc_html($row->user_token),
+                'user_slug' => $userSlug,
                 'time' => gmdate('H:i', $timestamp + (get_option('gmt_offset') * 3600)), // Adjust to site timezone for display
                 'date_ymd' => gmdate('Y-m-d', $timestamp + (get_option('gmt_offset') * 3600)),
                 'date_disp' => gmdate('M j, Y', $timestamp + (get_option('gmt_offset') * 3600)),
@@ -448,6 +469,69 @@ class EdelChatProFront {
     }
 
     function edel_render_mypage() {
+        $version = (defined('EDEL_CHAT_PRO_DEVELOP') && EDEL_CHAT_PRO_DEVELOP) ? time() : EDEL_CHAT_PRO_VERSION;
+        wp_enqueue_style(EDEL_CHAT_PRO_SLUG . '-mypage', EDEL_CHAT_PRO_URL . '/css/mypage.css', array(), $version);
+
+        // 1. 他ユーザーのプロフィール閲覧モード
+        if (isset($_GET['edel_user'])) {
+            $slug = sanitize_text_field($_GET['edel_user']);
+            $user = get_user_by('slug', $slug);
+
+            if (!$user) {
+                return '<div class="edel-mypage-container"><p>' . esc_html__('User not found.', 'edel-chat-pro') . '</p></div>';
+            }
+
+            $is_public = get_user_meta($user->ID, 'edel_is_profile_public', true);
+            if (!$is_public) {
+                return '<div class="edel-mypage-container"><p>' . esc_html__('This profile is private.', 'edel-chat-pro') . '</p></div>';
+            }
+
+            $nickname = get_user_meta($user->ID, 'nickname', true) ?: $user->display_name;
+            $description = get_user_meta($user->ID, 'description', true);
+            $last_login = get_user_meta($user->ID, 'edel_last_login', true);
+            $last_login_disp = $last_login ? date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($last_login)) : __('Unknown', 'edel-chat-pro');
+
+            // ★変更点1: 画像URLを直接取得
+            $custom_avatar_url = get_user_meta($user->ID, 'edel_custom_avatar_url', true);
+
+            ob_start();
+        ?>
+            <div class="edel-mypage-container">
+                <section class="edel-mypage-section">
+                    <div class="edel-profile-header" style="text-align:center; margin-bottom:20px;">
+                        <div class="edel-profile-avatar" style="margin-bottom:10px;">
+                            <?php
+                            // ★変更点2: 画像がある場合はimgタグを直接出力、なければ標準関数を使用
+                            if ($custom_avatar_url) {
+                                echo '<img src="' . esc_url($custom_avatar_url) . '" class="edel-mypage-avatar-img">';
+                            } else {
+                                echo get_avatar($user->ID, 120);
+                            }
+                            ?>
+                        </div>
+                        <h2 style="margin:0; font-size:24px;"><?php echo esc_html($nickname); ?></h2>
+                        <p style="color:#888; font-size:12px; margin-top:5px;">
+                            <?php esc_html_e('Last Login:', 'edel-chat-pro'); ?> <?php echo esc_html($last_login_disp); ?>
+                        </p>
+                    </div>
+
+                    <?php if ($description): ?>
+                        <div class="edel-profile-bio" style="background:#f9f9f9; padding:15px; border-radius:8px;">
+                            <h3 style="font-size:16px; margin-top:0; border-bottom:1px solid #eee; padding-bottom:5px;"><?php esc_html_e('Bio', 'edel-chat-pro'); ?></h3>
+                            <p style="white-space:pre-wrap;"><?php echo nl2br(esc_html($description)); ?></p>
+                        </div>
+                    <?php endif; ?>
+
+                    <div style="margin-top:20px; text-align:center;">
+                        <a href="javascript:history.back()" class="edel-btn-secondary" style="padding:10px 20px; background:#eee; border-radius:30px; text-decoration:none; color:#333; font-weight:bold;"><?php esc_html_e('Go Back', 'edel-chat-pro'); ?></a>
+                    </div>
+                </section>
+            </div>
+        <?php
+            return ob_get_clean();
+        }
+
+        // 2. 自分のプロフィール編集モード
         if (!is_user_logged_in()) {
             $login_url = wp_login_url(get_permalink());
             return '<div class="edel-mypage-guest"><p>' . esc_html__('Login required.', 'edel-chat-pro') . '</p><a href="' . esc_url($login_url) . '" class="edel-btn-primary">' . esc_html__('Login', 'edel-chat-pro') . '</a></div>';
@@ -468,10 +552,10 @@ class EdelChatProFront {
                 update_user_meta($user_id, 'description', sanitize_textarea_field(wp_unslash($_POST['edel_description'])));
             }
 
-            // $_FILES check
-            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Files array handled via wp_check_filetype.
+            $is_public_val = isset($_POST['edel_is_profile_public']) ? 1 : 0;
+            update_user_meta($user_id, 'edel_is_profile_public', $is_public_val);
+
             if (!empty($_FILES['edel_avatar_file']['name'])) {
-                // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Handled in helper.
                 $upload_result = $this->edel_handle_avatar_upload($_FILES['edel_avatar_file'], $user_id);
                 if (is_wp_error($upload_result)) {
                     $msg = '<div class="edel-msg-error">' . esc_html($upload_result->get_error_message()) . '</div>';
@@ -487,12 +571,14 @@ class EdelChatProFront {
         $nickname = get_user_meta($user_id, 'nickname', true) ?: $current_user->display_name;
         $description = get_user_meta($user_id, 'description', true);
         $current_avatar_url = get_user_meta($user_id, 'edel_custom_avatar_url', true);
+        $is_public = get_user_meta($user_id, 'edel_is_profile_public', true);
+        $last_login = get_user_meta($user_id, 'edel_last_login', true);
+        $last_login_disp = $last_login ? date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($last_login)) : '-';
 
         ob_start();
-    ?>
+        ?>
         <div class="edel-mypage-container">
-            <?php echo wp_kses_post($msg); // Safe HTML built above
-            ?>
+            <?php echo wp_kses_post($msg); ?>
 
             <section class="edel-mypage-section">
                 <h2 class="edel-section-title"><?php esc_html_e('Profile Settings', 'edel-chat-pro'); ?></h2>
@@ -504,13 +590,28 @@ class EdelChatProFront {
                         <label><?php esc_html_e('Icon', 'edel-chat-pro'); ?></label>
                         <div class="edel-icon-preview">
                             <div id="edel-avatar-wrapper">
-                                <?php echo get_avatar($user_id, 80); ?>
+                                <?php
+                                // ★変更点3: ここも自前でimgタグを出力
+                                if ($current_avatar_url) {
+                                    echo '<img src="' . esc_url($current_avatar_url) . '" class="edel-mypage-avatar-img">';
+                                } else {
+                                    echo get_avatar($user_id, 80);
+                                }
+                                ?>
                             </div>
                             <div class="edel-file-input-wrapper">
                                 <input type="file" name="edel_avatar_file" id="edel_avatar_file" accept="image/jpeg,image/png,image/gif">
                                 <p class="edel-note"><?php esc_html_e('* jpg, png, gif (Max 2MB)', 'edel-chat-pro'); ?></p>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="edel-form-group edel-public-setting">
+                        <label class="edel-checkbox-label">
+                            <input type="checkbox" name="edel_is_profile_public" value="1" <?php checked(1, $is_public); ?>>
+                            <?php esc_html_e('Publish my profile', 'edel-chat-pro'); ?>
+                        </label>
+                        <p class="edel-public-note"><?php esc_html_e('If checked, other users can view your profile from the chat.', 'edel-chat-pro'); ?></p>
                     </div>
 
                     <div class="edel-form-group">
@@ -523,40 +624,37 @@ class EdelChatProFront {
                         <textarea name="edel_description" rows="4" class="edel-textarea"><?php echo esc_textarea($description); ?></textarea>
                     </div>
 
+                    <div class="edel-form-group">
+                        <label><?php esc_html_e('Last Login', 'edel-chat-pro'); ?></label>
+                        <p class="edel-last-login-text"><?php echo esc_html($last_login_disp); ?></p>
+                    </div>
+
                     <div class="edel-form-actions">
                         <button type="submit" name="edel_save_profile" class="edel-btn-primary"><?php esc_html_e('Save', 'edel-chat-pro'); ?></button>
                     </div>
                 </form>
             </section>
         </div>
+
         <style>
             .edel-msg-success {
                 background: #d4edda;
                 color: #155724;
-                padding: 10px;
-                border-radius: 4px;
-                margin-bottom: 20px;
+                padding: 15px;
+                border-radius: 6px;
+                margin-bottom: 25px;
+                border: 1px solid #c3e6cb;
+                text-align: center;
             }
 
             .edel-msg-error {
                 background: #f8d7da;
                 color: #721c24;
-                padding: 10px;
-                border-radius: 4px;
-                margin-bottom: 20px;
-            }
-
-            .edel-icon-preview {
-                display: flex;
-                align-items: center;
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-
-            .edel-note {
-                font-size: 12px;
-                color: #888;
-                margin-top: 4px;
+                padding: 15px;
+                border-radius: 6px;
+                margin-bottom: 25px;
+                border: 1px solid #f5c6cb;
+                text-align: center;
             }
         </style>
 <?php

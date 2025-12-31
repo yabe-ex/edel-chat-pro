@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Edel Chat Pro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-30 00:52+0000\n"
-"PO-Revision-Date: 2025-12-30 14:47+0000\n"
+"PO-Revision-Date: 2025-12-31 02:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: 日本語\n"
 "Language: ja\n"
@@ -15,15 +15,15 @@ msgstr ""
 "X-Loco-Version: 2.8.0; wp-6.9; php-8.1.23\n"
 "X-Domain: edel-chat-pro"
 
-#: inc/class-front.php:511
+#: inc/class-front.php:596
 msgid "* jpg, png, gif (Max 2MB)"
 msgstr "※ jpg, png, gif (最大2MB)"
 
-#: inc/class-front.php:124
+#: inc/class-front.php:133
 msgid "Access denied."
 msgstr "アクセスが拒否されました。"
 
-#: inc/class-admin.php:267 inc/class-admin.php:307
+#: inc/class-admin.php:268 inc/class-admin.php:308
 msgid "Action"
 msgstr "操作"
 
@@ -36,28 +36,28 @@ msgid "Admin Name for this page:"
 msgstr "このページの管理者名:"
 
 #. %s: room id
-#: inc/class-admin.php:244
+#: inc/class-admin.php:245
 #, php-format
 msgid "All messages in room \"%s\" have been deleted."
 msgstr "ルーム「%s」のすべてのメッセージが削除されました。"
 
-#: inc/class-front.php:70 inc/class-front.php:156
+#: inc/class-front.php:79 inc/class-front.php:165
 msgid "Anonymous"
 msgstr "匿名"
 
-#: inc/class-admin.php:339
+#: inc/class-admin.php:340
 msgid "Are you sure you want to delete all logs in this room?"
 msgstr "このルームのすべてのログを削除してもよろしいですか？"
 
-#: inc/class-front.php:43
+#: inc/class-front.php:52
 msgid "Are you sure you want to delete?"
 msgstr "本当に削除してもよろしいですか？"
 
-#: inc/class-admin.php:280
+#: inc/class-admin.php:281
 msgid "Are you sure?"
 msgstr "本当によろしいですか？"
 
-#: inc/class-admin.php:266
+#: inc/class-admin.php:267
 msgid "Back to List"
 msgstr "リストに戻る"
 
@@ -69,19 +69,19 @@ msgstr "背景色"
 msgid "Banned IP List"
 msgstr "禁止IPリスト"
 
-#: inc/class-front.php:522
+#: inc/class-front.php:510 inc/class-front.php:615
 msgid "Bio"
 msgstr "自己紹介"
 
-#: inc/class-front.php:102
+#: inc/class-front.php:111
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: inc/class-admin.php:265
+#: inc/class-admin.php:266
 msgid "Chat Details"
 msgstr "チャット詳細"
 
-#: inc/class-admin.php:7 inc/class-admin.php:300
+#: inc/class-admin.php:7 inc/class-admin.php:301
 msgid "Chat Rooms"
 msgstr "チャットルーム"
 
@@ -93,23 +93,23 @@ msgstr "チャットウィンドウの高さ"
 msgid "Comma separated (e.g. word1,word2)."
 msgstr "カンマ区切り (例: word1,word2)。"
 
-#: inc/class-front.php:157
+#: inc/class-front.php:166
 msgid "Content is empty."
 msgstr "内容が空です。"
 
-#: inc/class-admin.php:336
+#: inc/class-admin.php:337
 msgid "CSV DL"
 msgstr "CSVダウンロード"
 
-#: inc/class-admin.php:267
+#: inc/class-admin.php:268
 msgid "Date"
 msgstr "日時"
 
-#: inc/class-admin.php:280
+#: inc/class-admin.php:281
 msgid "Delete"
 msgstr "削除"
 
-#: inc/class-admin.php:343
+#: inc/class-admin.php:344
 msgid "Delete All"
 msgstr "全削除"
 
@@ -117,15 +117,15 @@ msgstr "全削除"
 msgid "Delete Data on Uninstall"
 msgstr "アンインストール時にデータを削除"
 
-#: inc/class-front.php:447
+#: inc/class-front.php:469
 msgid "Deletion failed."
 msgstr "削除に失敗しました。"
 
-#: inc/class-front.php:517
+#: inc/class-front.php:610
 msgid "Display Name"
 msgstr "表示名"
 
-#: inc/class-front.php:99
+#: inc/class-front.php:108
 msgid "Do you want to send this image?"
 msgstr "この画像を送信しますか？"
 
@@ -141,7 +141,7 @@ msgstr "Edel Chat Pro ルーム設定"
 msgid "Edel Hearts"
 msgstr "Edel Hearts"
 
-#: inc/class-front.php:89
+#: inc/class-front.php:98
 msgid "Enter message"
 msgstr "メッセージを入力"
 
@@ -149,7 +149,13 @@ msgstr "メッセージを入力"
 msgid "Enter one IP address per line. Posts from these IPs will be rejected."
 msgstr "1行に1つのIPアドレスを入力してください。これらのIPからの投稿は拒否されます。"
 
-#: inc/class-admin.php:158
+#: inc/class-admin.php:111
+msgid ""
+"Enter the URL of the page where you placed the [edel_mypage] shortcode. "
+"Required for avatar links."
+msgstr "[edel_mypage] ショートコードを設置したページのURLを入力してください。アバターからのリンク機能を使用する場合に必要です。"
+
+#: inc/class-admin.php:159
 msgid "Example: 500px, 80vh"
 msgstr "例: 500px, 80vh"
 
@@ -157,15 +163,19 @@ msgstr "例: 500px, 80vh"
 msgid "Example: ADMIN, STAFF"
 msgstr "例: ADMIN, STAFF"
 
-#: inc/class-front.php:574
+#: inc/class-front.php:672
 msgid "File size too large (Max 2MB)."
 msgstr "ファイルサイズが大きすぎます (最大2MB)。"
+
+#: inc/class-front.php:516
+msgid "Go Back"
+msgstr "戻る"
 
 #. Author URI of the plugin
 msgid "https://edel-hearts.com"
 msgstr "https://edel-hearts.com"
 
-#: inc/class-front.php:504
+#: inc/class-front.php:589
 msgid "Icon"
 msgstr "アイコン"
 
@@ -175,11 +185,15 @@ msgid ""
 "deleted when the plugin is deleted."
 msgstr "チェックを入れると、プラグイン削除時にすべてのチャットログ、設定、アップロードファイルが完全に削除されます。"
 
-#: inc/class-front.php:344 inc/class-admin.php:276
+#: inc/class-front.php:606
+msgid "If checked, other users can view your profile from the chat."
+msgstr "チェックを入れると、チャット画面から他のユーザーがあなたのプロフィールを閲覧できるようになります。"
+
+#: inc/class-front.php:365 inc/class-admin.php:277
 msgid "Image"
 msgstr "画像"
 
-#: inc/class-front.php:188
+#: inc/class-front.php:197
 msgid "Image error."
 msgstr "画像エラー。"
 
@@ -188,47 +202,55 @@ msgid ""
 "Interval for auto-fetching messages. Increase this if server load is high."
 msgstr "メッセージの自動取得間隔です。サーバー負荷が高い場合は数値を上げてください。"
 
-#: inc/class-front.php:570
+#: inc/class-front.php:668
 msgid "Invalid file type."
 msgstr "無効なファイル形式です。"
 
-#: inc/class-front.php:168
+#: inc/class-front.php:177
 msgid "Invalid image format."
 msgstr "無効な画像形式です。"
 
-#: inc/class-admin.php:267
+#: inc/class-admin.php:268
 msgid "IP Address"
 msgstr "IPアドレス"
 
-#: inc/class-admin.php:306
+#: inc/class-admin.php:307
 msgid "Last Active"
 msgstr "最終更新"
 
-#: inc/class-admin.php:235
+#: inc/class-front.php:620
+msgid "Last Login"
+msgstr "最終ログイン"
+
+#: inc/class-front.php:504
+msgid "Last Login:"
+msgstr "最終ログイン:"
+
+#: inc/class-admin.php:236
 msgid "Log deleted."
 msgstr "ログを削除しました。"
 
-#: inc/class-front.php:453
+#: inc/class-front.php:527
 msgid "Login"
 msgstr "ログイン"
 
-#: inc/class-front.php:453
+#: inc/class-front.php:527
 msgid "Login required."
 msgstr "ログインが必要です。"
 
-#: inc/class-admin.php:267
+#: inc/class-admin.php:268
 msgid "Message"
 msgstr "メッセージ"
 
-#: inc/class-front.php:200
+#: inc/class-front.php:209
 msgid "Message contains prohibited words."
 msgstr "メッセージに禁止ワードが含まれています。"
 
-#: inc/class-front.php:411
+#: inc/class-front.php:433
 msgid "Message is empty."
 msgstr "メッセージが空です。"
 
-#: inc/class-admin.php:305
+#: inc/class-admin.php:306
 msgid "Messages"
 msgstr "メッセージ数"
 
@@ -236,11 +258,15 @@ msgstr "メッセージ数"
 msgid "My Bubble Color"
 msgstr "自分の吹き出し色"
 
+#: inc/class-admin.php:111
+msgid "My Page URL"
+msgstr "マイページのURL"
+
 #: inc/class-admin.php:98
 msgid "Name used when admin posts."
 msgstr "管理者が投稿する際に使用される名前です。"
 
-#: inc/class-front.php:70
+#: inc/class-front.php:79
 msgid "Name:"
 msgstr "名前:"
 
@@ -248,19 +274,19 @@ msgstr "名前:"
 msgid "NG Words"
 msgstr "NGワード"
 
-#: inc/class-admin.php:267
+#: inc/class-admin.php:268
 msgid "Nickname"
 msgstr "ニックネーム"
 
-#: inc/class-admin.php:283
+#: inc/class-admin.php:284
 msgid "No logs found."
 msgstr "ログが見つかりませんでした。"
 
-#: inc/class-admin.php:263
+#: inc/class-admin.php:264
 msgid "No Name"
 msgstr "名称未設定"
 
-#: inc/class-admin.php:350
+#: inc/class-admin.php:351
 msgid "No rooms found."
 msgstr "ルームが見つかりませんでした。"
 
@@ -268,64 +294,68 @@ msgstr "ルームが見つかりませんでした。"
 msgid "Other Bubble Color"
 msgstr "相手の吹き出し色"
 
-#: inc/class-front.php:415
+#: inc/class-front.php:437
 msgid "Permission denied."
 msgstr "権限がありません。"
 
 #. %d: seconds
-#: inc/class-front.php:134
+#: inc/class-front.php:143
 msgid "Please wait %d seconds before sending another message."
 msgstr "次のメッセージを送信するまで %d 秒お待ちください。"
 
-#: inc/class-front.php:480
+#: inc/class-front.php:558
 msgid "Profile and image updated."
 msgstr "プロフィールと画像を更新しました。"
 
-#: inc/class-front.php:498
+#: inc/class-front.php:583
 msgid "Profile Settings"
 msgstr "プロフィール設定"
 
-#: inc/class-front.php:483
+#: inc/class-front.php:561
 msgid "Profile updated."
 msgstr "プロフィールを更新しました。"
 
-#: inc/class-front.php:62
+#: inc/class-front.php:604
+msgid "Publish my profile"
+msgstr "プロフィールを公開する"
+
+#: inc/class-front.php:71
 msgid "Reply to"
 msgstr "返信"
 
-#: inc/class-admin.php:303
+#: inc/class-admin.php:304
 msgid "Room ID"
 msgstr "ルームID"
 
-#: inc/class-admin.php:304
+#: inc/class-admin.php:305
 msgid "Room Name"
 msgstr "ルーム名"
 
-#: inc/class-admin.php:227
+#: inc/class-admin.php:228
 msgid "Room name updated."
 msgstr "ルーム名を更新しました。"
 
-#: inc/class-front.php:527 inc/class-admin.php:322
+#: inc/class-front.php:625 inc/class-admin.php:323
 msgid "Save"
 msgstr "保存"
 
-#: inc/class-front.php:229
+#: inc/class-front.php:238
 msgid "Save failed."
 msgstr "保存に失敗しました。"
 
-#: inc/class-front.php:42 inc/class-front.php:90 inc/class-front.php:103
+#: inc/class-front.php:51 inc/class-front.php:99 inc/class-front.php:112
 msgid "Send"
 msgstr "送信"
 
-#: inc/class-front.php:78
+#: inc/class-front.php:87
 msgid "Send Image"
 msgstr "画像を送信"
 
-#: inc/class-admin.php:321
+#: inc/class-admin.php:322
 msgid "Set Name"
 msgstr "名前を設定"
 
-#: inc/class-admin.php:8 inc/class-admin.php:19 inc/class-admin.php:198
+#: inc/class-admin.php:8 inc/class-admin.php:19 inc/class-admin.php:199
 msgid "Settings"
 msgstr "設定"
 
@@ -333,15 +363,19 @@ msgstr "設定"
 msgid "Spam Limit (sec)"
 msgstr "連続投稿制限 (秒)"
 
-#: inc/class-front.php:344
+#: inc/class-front.php:365
 msgid "Stamp"
 msgstr "スタンプ"
 
-#: inc/class-front.php:83
+#: inc/class-front.php:92
 msgid "Stamps"
 msgstr "スタンプ"
 
-#: inc/class-front.php:49
+#: inc/class-front.php:485
+msgid "This profile is private."
+msgstr "このプロフィールは非公開です。"
+
+#: inc/class-front.php:58
 msgid "Toggle Sound"
 msgstr "通知音切替"
 
@@ -349,7 +383,11 @@ msgstr "通知音切替"
 msgid "Uninstallation"
 msgstr "アンインストール"
 
-#: inc/class-front.php:432
+#: inc/class-front.php:492
+msgid "Unknown"
+msgstr "不明"
+
+#: inc/class-front.php:454
 msgid "Update failed."
 msgstr "更新に失敗しました。"
 
@@ -357,11 +395,15 @@ msgstr "更新に失敗しました。"
 msgid "Update Interval (sec)"
 msgstr "更新間隔 (秒)"
 
-#: inc/class-front.php:607
+#: inc/class-front.php:705
 msgid "Upload failed. Check directory permissions."
 msgstr "アップロードに失敗しました。ディレクトリの権限を確認してください。"
 
-#: inc/class-admin.php:330
+#: inc/class-front.php:479
+msgid "User not found."
+msgstr "ユーザーが見つかりませんでした。"
+
+#: inc/class-admin.php:331
 msgid "View Logs"
 msgstr "ログを表示"
 

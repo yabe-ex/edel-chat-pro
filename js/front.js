@@ -138,6 +138,22 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    // --- ★改良: アバター・名前クリックでプロフィールへ遷移 ---
+    $(document).on('click', '.edel-chat-avatar-img, .edel-chat-avatar-default, .edel-chat-nickname', function (e) {
+        // 設定URLがない場合は無視
+        if (!edelChat.profileUrl) return;
+
+        // 親要素(.edel-chat-row)からスラッグを取得
+        const $row = $(this).closest('.edel-chat-row');
+        const slug = $row.data('slug');
+
+        if (slug) {
+            e.stopPropagation(); // 他のクリックイベント（編集など）との干渉を防ぐ
+            const separator = edelChat.profileUrl.includes('?') ? '&' : '?';
+            window.location.href = edelChat.profileUrl + separator + 'edel_user=' + slug;
+        }
+    });
+
     // --- Image Handling ---
 
     let pendingImageData = null;
@@ -451,16 +467,24 @@ jQuery(document).ready(function ($) {
         const isMe = msg.user_token === userToken;
         const typeClass = isMe ? 'is-me' : 'is-other';
 
+        // ★改良: リンク有効時のスタイル（アイコン）
+        const linkStyle = edelChat.profileUrl && msg.user_slug ? 'cursor:pointer;' : '';
+        const linkTitle = edelChat.profileUrl && msg.user_slug ? 'View Profile' : '';
+
         let avatarHtml = '';
         if (!isMe) {
-            if (msg.avatar) avatarHtml = `<img src="${msg.avatar}" class="edel-chat-avatar-img">`;
-            else avatarHtml = `<div class="edel-chat-avatar-default">${msg.nickname.charAt(0)}</div>`;
+            if (msg.avatar) avatarHtml = `<img src="${msg.avatar}" class="edel-chat-avatar-img" style="${linkStyle}" title="${linkTitle}">`;
+            else avatarHtml = `<div class="edel-chat-avatar-default" style="${linkStyle}" title="${linkTitle}">${msg.nickname.charAt(0)}</div>`;
         }
 
         let badgeHtml = '';
         if (msg.is_admin && edelChat.adminLabel && edelChat.adminLabel.trim() !== '') {
             badgeHtml = `<span class="edel-admin-badge">${edelChat.adminLabel}</span>`;
         }
+
+        // ★改良: リンク有効時のスタイル（名前）
+        // 名前にも cursor:pointer を適用するためのインラインスタイル追加
+        const nameHtml = `<div class="edel-chat-nickname" style="${linkStyle}" title="${linkTitle}">${msg.nickname} ${badgeHtml}</div>`;
 
         let bubbleClass = '';
         let contentHtml = createContentHtml(msg);
@@ -492,13 +516,15 @@ jQuery(document).ready(function ($) {
             });
         }
 
-        let html = `<div class="edel-chat-row ${typeClass}" id="edel-msg-${msg.id}" data-token="${msg.user_token}">`;
+        let html = `<div class="edel-chat-row ${typeClass}" id="edel-msg-${msg.id}" data-token="${msg.user_token}" data-slug="${
+            msg.user_slug || ''
+        }">`;
 
         html += `<div class="edel-chat-actions-bar">${actionBtns}</div>`;
 
         if (!isMe) html += `<div class="edel-chat-avatar-col">${avatarHtml}</div>`;
         html += `<div class="edel-chat-content-col">`;
-        if (!isMe) html += `<div class="edel-chat-nickname">${msg.nickname} ${badgeHtml}</div>`;
+        if (!isMe) html += nameHtml; // 改良した名前HTMLを使用
         if (msg.msg_type === 'stamp') bubbleClass = 'is-stamp';
 
         html += `<div class="edel-chat-bubble ${bubbleClass}" id="edel-bubble-${msg.id}">`;

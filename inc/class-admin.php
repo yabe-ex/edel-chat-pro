@@ -108,7 +108,7 @@ class EdelChatProAdmin {
         register_setting('edel_chat_option_group', 'edel_chat_options', array('sanitize_callback' => array($this, 'sanitize_options')));
 
         add_settings_section('edel_chat_design_section', '', null, 'edel-chat-pro-settings');
-
+        add_settings_field('profile_page_url', __('My Page URL', 'edel-chat-pro'), array($this, 'render_text_field'), 'edel-chat-pro-settings', 'edel_chat_design_section', array('field' => 'profile_page_url', 'default' => '', 'desc' => __('Enter the URL of the page where you placed the [edel_mypage] shortcode. Required for avatar links.', 'edel-chat-pro')));
         add_settings_field('bg_color', __('Background Color', 'edel-chat-pro'), array($this, 'render_color_picker'), 'edel-chat-pro-settings', 'edel_chat_design_section', array('field' => 'bg_color', 'default' => '#7296cc'));
         add_settings_field('me_color', __('My Bubble Color', 'edel-chat-pro'), array($this, 'render_color_picker'), 'edel-chat-pro-settings', 'edel_chat_design_section', array('field' => 'me_color', 'default' => '#8de055'));
         add_settings_field('other_color', __('Other Bubble Color', 'edel-chat-pro'), array($this, 'render_color_picker'), 'edel-chat-pro-settings', 'edel_chat_design_section', array('field' => 'other_color', 'default' => '#ffffff'));
@@ -140,6 +140,7 @@ class EdelChatProAdmin {
         if (isset($input['spam_limit'])) $new_input['spam_limit'] = absint($input['spam_limit']);
         if (isset($input['banned_ips'])) $new_input['banned_ips'] = sanitize_textarea_field($input['banned_ips']);
         if (isset($input['ng_words'])) $new_input['ng_words'] = sanitize_textarea_field($input['ng_words']);
+        if (isset($input['profile_page_url'])) $new_input['profile_page_url'] = esc_url_raw($input['profile_page_url']);
         // Sanitize uninstall checkbox
         $new_input['delete_on_uninstall'] = isset($input['delete_on_uninstall']) ? 1 : 0;
         return $new_input;
